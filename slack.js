@@ -4,7 +4,6 @@ const web = new WebClient(process.env.SLACK_TOKEN);
 
 async function getBotInfo() {
   let botInfo = null;
-  
   try {
     botInfo = await web.auth.test();
   } catch (error) {

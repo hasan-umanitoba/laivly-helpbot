@@ -3,10 +3,10 @@
 
 // we've started you off with Express (https://expressjs.com/)
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
+require('dotenv').config({path: __dirname + '/.env'});
 const express = require("express");
 const bodyParser = require('body-parser');
 const slack = require('./slack');
-require('dotenv').config({path: __dirname + '/.env'});
 
 // @slack/event-api
 const { createEventAdapter } = require('@slack/events-api');
