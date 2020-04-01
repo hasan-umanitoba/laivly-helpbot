@@ -13,14 +13,17 @@ mongoose.connect(config.DB, { useNewUrlParser: true }).then(
     err => { console.log('Can not connect to the database'+ err) }
 );
 
-const router = require("./routers/");
-app.use('/api', router);
+const slackEvents = require('./events/slack');
+slackEvents.register(app);
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
  
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+
+const router = require("./routers/");
+app.use('/api', router);
 
 // listen for requests :)
 const listener = app.listen(port, () => {
