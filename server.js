@@ -1,30 +1,29 @@
 require('dotenv').config({path: __dirname + '/.env'});
-const express = require("express");
-const bodyParser = require('body-parser');
-const mongoose = require("mongoose");
-const config = require("./config/");
 
-const app = express();
 const port = process.env.PORT || 3000;
 
-mongoose.Promise = global.Promise;
-mongoose.connect(config.DB, { useNewUrlParser: true, useUnifiedTopology: true }).then(
-    () => { console.log('Database is connected') },
-    err => { console.log('Can not connect to the database'+ err) }
-);
+const { App } = require('@slack/bolt');
 
-const slackEvents = require('./events/slack');
-slackEvents.register(app);
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
- 
-// parse application/json
-app.use(bodyParser.json());
-
-const router = require("./routers/");
-app.use('/api', router);
-
-const listener = app.listen(port, () => {
-  console.log("Your app is listening on port " + listener.address().port);
+const app = new App({
+  token: process.env.SLACK_TOKEN,
+  signingSecret: process.env.SLACK_SIGNING_SECRET
 });
+
+// Listens to incoming messages that contain "hello"
+app.message(/hello/i, async ({ message, say }) => {
+  // say() sends a message to the channel where the event was triggered
+  await say(`Hey there <@${message.user}>!`);
+});
+
+// Listens to incoming messages that contain "hello"
+app.message(/.*/, async ({ message, say }) => {
+  // say() sends a message to the channel where the event was triggered
+  await say(`This if a fallback message, <@${message.user}>!`);
+});
+
+(async () => {
+  // Start your app
+  await app.start(port);
+
+  console.log('⚡️ Bolt app is running!');
+})();
