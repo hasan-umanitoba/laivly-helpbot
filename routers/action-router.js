@@ -17,7 +17,7 @@ router.get("/", async (request, response) => {
 router.get("/id/:id", async (request, response) => {
     const id = request.params.id;
 
-    actionService.findById(id).findById(id)
+    actionService.findById(id)
         .then(actions => {
             response.status(200).json(actions);
         })
@@ -31,7 +31,7 @@ router.post("/", async (request, response) => {
     const actions = request.body;
 
     // Save multiple actions
-    actionService.create(actions).findById(id)
+    actionService.create(actions)
         .then(actions => {
             response.status(200).json(actions);
         })

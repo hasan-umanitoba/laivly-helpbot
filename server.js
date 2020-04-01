@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 mongoose.Promise = global.Promise;
-mongoose.connect(config.DB, { useNewUrlParser: true }).then(
+mongoose.connect(config.DB, { useNewUrlParser: true, useUnifiedTopology: true }).then(
     () => { console.log('Database is connected') },
     err => { console.log('Can not connect to the database'+ err) }
 );
@@ -25,7 +25,6 @@ app.use(bodyParser.json());
 const router = require("./routers/");
 app.use('/api', router);
 
-// listen for requests :)
 const listener = app.listen(port, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
