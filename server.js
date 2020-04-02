@@ -14,7 +14,7 @@ const app = new App({
 (async () => {
   // Register actions
   await registry.init(app);
-});
+})();
 
 // Listens to incoming messages that contain "hello"
 app.message(/hello/i, async ({ message, say }) => {
