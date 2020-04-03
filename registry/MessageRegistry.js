@@ -24,7 +24,7 @@ async function registerBefore(app) {
  * @param {Action} action 
  */
 async function register(app, action) {
-  app.message(new RegExp(action.pattern), preventMultipleMessages, async ({ message, say }) => {
+  app.message(new RegExp(action.pattern, 'i'), preventMultipleMessages, async ({ message, say }) => {
     await say(action.response.text);
   });
 }

@@ -1,10 +1,11 @@
 const actionService = require('../services/ActionService');
 const registries = new Map([
-  ['message', require('./MessageRegistry')]
+  ['message', require('./MessageRegistry')],
+  ['action', require('./ActionRegistry')]
 ]);
 
 /**
- * @param {BoltApp} app  
+ * @param {BoltApp} app
  */
 async function init(app) {
   const actions = await fetch();
@@ -28,7 +29,7 @@ async function registerBefore(app) {
 }
 
 /**
- * @param {BoltApp} app  
+ * @param {BoltApp} app
  */
 async function register(app, actions) {
   actions.forEach((action) => {
