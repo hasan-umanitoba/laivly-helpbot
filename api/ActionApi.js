@@ -2,6 +2,9 @@ const axios = require('axios');
 
 const helpbotUri = process.env.HELPBOT_API_URI;
 
+/**
+ * @returns {Array<Action>|null}
+ */
 async function getAllActions() {
   let actions = null;
 

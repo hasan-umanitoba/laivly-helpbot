@@ -1,4 +1,4 @@
-require('dotenv').config({path: __dirname + '/.env'});
+require('dotenv').config({ path: __dirname + '/.env' });
 const registry = require('./registry');
 
 const port = process.env.PORT || 3000;
@@ -12,21 +12,8 @@ const app = new App({
 
 // Register all actions present in the DB
 (async () => {
-  // Register actions
-  await registry.init(app);
+  await registerEvents();
 })();
-
-// Listens to incoming messages that contain "hello"
-app.message(/hello/i, async ({ message, say }) => {
-  // say() sends a message to the channel where the event was triggered
-  await say(`Hey there <@${message.user}>!`);
-});
-
-// Listens to incoming messages that contain "hello"
-app.message(/.*/, async ({ message, say }) => {
-  // say() sends a message to the channel where the event was triggered
-  await say(`This if a fallback message, <@${message.user}>!`);
-});
 
 (async () => {
   // Start your app
@@ -34,3 +21,8 @@ app.message(/.*/, async ({ message, say }) => {
 
   console.log('⚡️ Bolt app is running!');
 })();
+
+async function registerEvents() {
+  // Register actions
+  await registry.init(app);
+}
