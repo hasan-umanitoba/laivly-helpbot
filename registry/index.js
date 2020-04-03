@@ -1,16 +1,21 @@
 const actionService = require('../services/ActionService');
 const registries = new Map([
   ['message', require('./MessageRegistry')],
-  ['action', require('./ActionRegistry')]
+  ['action', require('./ActionRegistry')],
+  ['command', require('./CommandRegistry')]
 ]);
 
 /**
  * @param {BoltApp} app
  */
 async function init(app) {
+  // Fetch all actions from the DB
   const actions = await fetch();
+  // Register all actions that that needs to happen before register()
   await registerBefore(app);
+  // Register all actions from the DB
   await register(app, actions);
+  // Register any actions that needs to happen after register()
   await registerAfter(app);
 }
 
