@@ -11,6 +11,10 @@ async function registerBefore(app) {
  * @param {Action} action 
  */
 async function register(app, action) {
+  app.error((error) => {
+    // Check the details of the error to handle cases where you should retry sending a message or stop the app
+    console.error(error);
+  });
 }
 
 /**

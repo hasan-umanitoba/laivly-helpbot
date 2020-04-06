@@ -11,6 +11,15 @@ async function registerBefore(app) {
  * @param {Action} action 
  */
 async function register(app, action) {
+  app.shortcut(action.pattern, async ({ ack, options }) => {
+    await ack();
+    try {
+      throw new Error(`Not Implemented`);
+    }
+    catch (error) {
+      console.error(error);
+    }
+  });
 }
 
 /**
