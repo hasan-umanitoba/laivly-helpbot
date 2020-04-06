@@ -8,12 +8,12 @@ async function registerBefore(app) {
 /**
  * Method to register any events that needs to be triggered prior to registerAfter()
  * @param {BoltApp} app 
- * @param {Action} action 
+ * @param {Listener} listener 
  */
-async function register(app, action) {
-  app.action(action.pattern, async ({ ack, body, context, say }) => {
+async function register(app, listener) {
+  app.action(listener.pattern, async ({ ack, body, context, say }) => {
     await ack();
-    await say(action.response.text);
+    await say(listener.response.text);
   });
 }
 

@@ -10,9 +10,9 @@ const app = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET
 });
 
-// Register all actions present in the DB
+// Register all listeners present in the DB
 (async () => {
-  await registerEvents();
+  await registerListeners();
 })();
 
 (async () => {
@@ -22,7 +22,7 @@ const app = new App({
   console.log('⚡️ Bolt app is running!');
 })();
 
-async function registerEvents() {
-  // Register actions
+async function registerListeners() {
+  // Register listeners
   await registry.init(app);
 }

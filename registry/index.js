@@ -1,4 +1,4 @@
-const actionService = require('../services/ActionService');
+const listenerService = require('../services/ListenerService');
 const registries = new Map([
   ['message', require('./MessageRegistry')],
   ['action', require('./ActionRegistry')],
@@ -9,21 +9,21 @@ const registries = new Map([
  * @param {BoltApp} app
  */
 async function init(app) {
-  // Fetch all actions from the DB
-  const actions = await fetch();
-  // Register all actions that that needs to happen before register()
+  // Fetch all listeners from the DB
+  const listeners = await fetch();
+  // Register all listeners that that needs to happen before register()
   await registerBefore(app);
-  // Register all actions from the DB
-  await register(app, actions);
-  // Register any actions that needs to happen after register()
+  // Register all listeners from the DB
+  await register(app, listeners);
+  // Register any listeners that needs to happen after register()
   await registerAfter(app);
 }
 
 /**
- * @returns {Array<Action>}
+ * @returns {Array<Listener>}
  */
 async function fetch() {
-  return await actionService.fetchActions();
+  return await listenerService.fetchListeners();
 }
 
 /**
@@ -36,13 +36,13 @@ async function registerBefore(app) {
 /**
  * @param {BoltApp} app
  */
-async function register(app, actions) {
-  actions.forEach((action) => {
-    const registry = registries.get(action.type);
+async function register(app, listeners) {
+  listeners.forEach((listener) => {
+    const registry = registries.get(listener.type);
     
     registry
-      ? registry.register(app, action)
-      : console.log(`Registry for ${action.type} not found`);
+      ? registry.register(app, listener)
+      : console.log(`Registry for ${listener.type} not found`);
   });
 }
 

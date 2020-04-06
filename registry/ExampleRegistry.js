@@ -8,9 +8,9 @@ async function registerBefore(app) {
 /**
  * Method to register any events that needs to be triggered prior to registerAfter()
  * @param {BoltApp} app 
- * @param {Action} action 
+ * @param {Listener} listener 
  */
-async function register(app, action) {
+async function register(app, listener) {
 }
 
 /**

@@ -8,10 +8,10 @@ async function registerBefore(app) {
 /**
  * Method to register any events that needs to be triggered prior to registerAfter()
  * @param {BoltApp} app 
- * @param {Action} action 
+ * @param {Listener} listener 
  */
-async function register(app, action) {
-  app.shortcut(action.pattern, async ({ ack, options }) => {
+async function register(app, listener) {
+  app.shortcut(listener.pattern, async ({ ack, options }) => {
     await ack();
     try {
       throw new Error(`Not Implemented`);
