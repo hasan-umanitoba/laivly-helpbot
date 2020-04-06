@@ -1,4 +1,4 @@
-const listenerApi = require('../api/ListenerApi');
+const listenerApi = require('../apis/ListenerApi');
 
 /**
  * @returns {Array<Listener>}

@@ -13,7 +13,22 @@ async function registerBefore(app) {
 async function register(app, listener) {
   app.action(listener.pattern, async ({ ack, body, context, say }) => {
     await ack();
-    await say(listener.response.text);
+    
+    let text = listener.response.text || '';
+    
+    if (Array.isArray(listener.response.tasks)) {
+      for (const task of listener.response.tasks) {
+        try {
+          const taskModule = require(`../tasks/${task.fileName}.js`);
+          
+          text = await taskModule.exec(task, text);
+        } catch(error) {
+          console.log(`Error when requiring ${task.fileName}`, error, task);
+        }
+      }
+    }
+
+    await say(text);
   });
 }
 
