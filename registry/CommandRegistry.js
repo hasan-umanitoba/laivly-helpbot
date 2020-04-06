@@ -11,14 +11,24 @@ async function registerBefore(app) {
  * @param {Listener} listener 
  */
 async function register(app, listener) {
-  app.command(listener.pattern, async ({ ack, body, context }) => {
+  app.command(listener.pattern, async ({ ack, say, body, context }) => {
     await ack();
-    try {
-      throw new Error(`Not Implemented`);
+    
+    let text = listener.response.text || '';
+    
+    if (Array.isArray(listener.response.tasks)) {
+      for (const task of listener.response.tasks) {
+        try {
+          const taskModule = require(`../tasks/${task.fileName}.js`);
+          
+          text = await taskModule.exec(task, text);
+        } catch(error) {
+          console.log(`Error when requiring ${task.fileName}`, error, task);
+        }
+      }
     }
-    catch (error) {
-      console.error(error);
-    }
+
+    await say(text);
   });
 }
 
