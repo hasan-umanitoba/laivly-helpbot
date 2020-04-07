@@ -1,5 +1,8 @@
 module.exports = {
   SLACK_USER: '[SLACK_USER]',
   VIDEO_URI: '[VIDEO_URI]',
-  TEXT: '[TEXT]'
+  TITLE: '[TITLE]',
+  TEXT: '[TEXT]',
+  PICTURE: '[PICTURE]',
+  URL: '[URL]'
 }

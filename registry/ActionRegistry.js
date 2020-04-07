@@ -19,7 +19,7 @@ async function register(app, listener) {
     if (Array.isArray(listener.response.tasks)) {
       for (const task of listener.response.tasks) {
         try {
-          const taskModule = require(`../tasks/${task.fileName}.js`);
+          const taskModule = require(`../tasks/actions/${task.fileName}.js`);
           
           text = await taskModule.exec(task, text);
         } catch(error) {

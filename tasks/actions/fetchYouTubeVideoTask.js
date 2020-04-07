@@ -1,5 +1,5 @@
-const youTubeApi = require('../apis/YouTubeApi');
-const tokens = require('../constants/tokens');
+const youTubeApi = require('../../apis/YouTubeApi');
+const tokens = require('../../constants/tokens');
 
 async function exec(task, text) {
   const response = await youTubeApi.listYouTubeVideos(task.query);

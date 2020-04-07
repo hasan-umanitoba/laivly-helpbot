@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-async function exec(task, text) {
+async function exec(task, text, payload) {
   const response = (await axios.get(`https://quotes.rest/qod`)).data;
 
   if (response && response.contents && response.contents.quotes) {

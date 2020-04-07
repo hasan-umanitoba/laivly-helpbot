@@ -11,7 +11,7 @@ async function registerBefore(app) {
  * @param {Listener} listener 
  */
 async function register(app, listener) {
-  app.command(listener.pattern, async ({ ack, say, body, context }) => {
+  app.command(listener.pattern, async ({ ack, say, payload, body, context }) => {
     await ack();
     
     let text = listener.response.text || '';
@@ -19,9 +19,9 @@ async function register(app, listener) {
     if (Array.isArray(listener.response.tasks)) {
       for (const task of listener.response.tasks) {
         try {
-          const taskModule = require(`../tasks/${task.fileName}.js`);
+          const taskModule = require(`../tasks/commands/${task.fileName}.js`);
           
-          text = await taskModule.exec(task, text);
+          text = await taskModule.exec(task, text, payload);
         } catch(error) {
           console.log(`Error when requiring ${task.fileName}`, error, task);
         }
