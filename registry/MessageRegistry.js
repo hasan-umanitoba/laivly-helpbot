@@ -17,7 +17,7 @@ async function registerBefore(app) {
  */
 async function register(app, listener) {
   app.message(new RegExp(listener.pattern, 'i'), preventMultipleMessages, async ({ message, say }) => {
-    await say(listener.response.text);
+    await say(listener.data.text);
   });
 }
 

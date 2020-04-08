@@ -14,10 +14,10 @@ async function register(app, listener) {
   app.command(listener.pattern, async ({ ack, say, payload, body, context }) => {
     await ack();
     
-    let text = listener.response.text || '';
+    let text = listener.data.text || '';
     
-    if (Array.isArray(listener.response.tasks)) {
-      for (const task of listener.response.tasks) {
+    if (Array.isArray(listener.data.tasks)) {
+      for (const task of listener.data.tasks) {
         try {
           const taskModule = require(`../tasks/commands/${task.fileName}.js`);
           
@@ -28,7 +28,7 @@ async function register(app, listener) {
       }
     }
 
-    await say(text);
+    if (text) await say(text);
   });
 }
 

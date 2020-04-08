@@ -1,3 +1,5 @@
+
+
 /**
  * Method to register any events that needs to be triggered prior to register()
  * @param {BoltApp} app 
@@ -11,23 +13,21 @@ async function registerBefore(app) {
  * @param {Listener} listener 
  */
 async function register(app, listener) {
-  app.action(listener.pattern, async ({ ack, body, context, say }) => {
-    await ack();
-    
+  app.event(listener.pattern, async ({ ack, say, event }) => {
     let text = listener.data.text || '';
     
     if (Array.isArray(listener.data.tasks)) {
       for (const task of listener.data.tasks) {
         try {
-          const taskModule = require(`../tasks/actions/${task.fileName}.js`);
+          const taskModule = require(`../tasks/events/${task.fileName}.js`);
           
-          text = await taskModule.exec(task, text);
+          text = await taskModule.exec(task, text, event);
         } catch(error) {
           console.log(`Error when requiring ${task.fileName}`, error, task);
         }
       }
     }
-
+    
     if (text) await say(text);
   });
 }
