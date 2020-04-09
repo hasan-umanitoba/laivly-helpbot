@@ -7,7 +7,7 @@ async function registerBefore(app) {
     // Acknowledge the view_submission event
     await ack();
     const taskModule = require(`../tasks/views/eventViewsTask.js`);   
-    const result = await taskModule.exec(body, view, context);        
+    const result = await taskModule.exec(body, view, context , app);        
 });
 }
 
