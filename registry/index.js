@@ -3,6 +3,7 @@ const registries = new Map([
   ['message', require('./MessageRegistry')],
   ['action', require('./ActionRegistry')],
   ['command', require('./CommandRegistry')],
+  ['event', require('./EventRegistry')],
   ['view', require('./ViewRegistry')]
 ]);
 
