@@ -16,7 +16,7 @@ oAuth2Client.setCredentials({
 })
 
 
-async function exec(body, view, context) {
+async function exec(body, view, context , app) {
     var valuesObject = view.state.values;
     var eventCreated = false;
     const timeValue = valuesObject.time_input.TimeSelect.selected_option.value;
@@ -36,8 +36,9 @@ async function exec(body, view, context) {
     eventEndTime.setHours(eventEndTime.getHours() + 5); // Adjusting time zone for end Date 
     eventEndTime.setHours(Timehours);
     eventEndTime.setMinutes(eventEndTime.getMinutes() + durationSelected);
+    var summaryCalendar = textSelected.substring(0, 10) + "..";
     const event = {
-        summary: `Meeting`,
+        summary: summaryCalendar,
         description: textSelected,
         colorId: 5,
         start: {
