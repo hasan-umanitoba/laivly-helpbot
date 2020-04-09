@@ -33,6 +33,13 @@ function setMessageByTs(channel, ts, userId, text) {
   }
 }
 
+/**
+ * @param {String} key
+ * @param {String} channel
+ * @param {String} ts
+ * @param {String} userId
+ * @returns {String}
+ */
 function formatKey(key, channel, ts, userId = '') {
   return `${key}${channel}${ts}${userId}`;
 }

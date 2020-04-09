@@ -1,5 +1,10 @@
 const axios = require('axios');
 
+/**
+ * @param {Task} task 
+ * @param {String} text 
+ * @param {SlackPayload} payload 
+ */
 async function exec(task, text, payload) {
   const response = (await axios.get(`https://quotes.rest/qod`)).data;
 

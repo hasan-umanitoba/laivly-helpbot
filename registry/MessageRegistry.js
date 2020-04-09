@@ -1,10 +1,12 @@
+const sentimentEngineApi = require('../apis/SentimentEngineApi');
+
 /**
  * Method to register any events that needs to be triggered prior to register()
  * @param {BoltApp} app 
  */
 async function registerBefore(app) {
   // Listens to incoming messages that contain "hello"
-  app.message(/hello/i, preventMultipleMessages, async ({ message, say }) => {
+  app.message(/hello/i, preventMultipleResponses, async ({ message, say }) => {
     // say() sends a message to the channel where the event was triggered
     await say(`Hey there <@${message.user}>!`);
   });
@@ -16,7 +18,7 @@ async function registerBefore(app) {
  * @param {Listener} listener 
  */
 async function register(app, listener) {
-  app.message(new RegExp(listener.pattern, 'i'), preventMultipleMessages, async ({ message, say }) => {
+  app.message(new RegExp(listener.pattern, 'i'), preventMultipleResponses, async ({ message, say }) => {
     await say(listener.data.text);
   });
 }
@@ -26,16 +28,20 @@ async function register(app, listener) {
  * @param {BoltApp} app 
  */
 async function registerAfter(app) {
-  app.message(/.*/, preventMultipleMessages, async ({ message, say }) => {
+  app.message(/.*/, preventMultipleResponses, async ({ message, say }) => {
     // say() sends a message to the channel where the event was triggered
-    await say(`This if a fallback message, <@${message.user}>!`);
+    const data = await sentimentEngineApi.sendMessage(message.text);
+
+    if (data) {
+      await say(data.response);
+    }
   });
 }
 
 /**
  * @param {Object} params 
  */
-async function preventMultipleMessages({ message, next }) {
+async function preventMultipleResponses({ message, next }) {
   if (!message.isAnswered) {
     message.isAnswered = true;
     await next();

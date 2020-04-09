@@ -4,7 +4,7 @@ const userEmailKey = 'user.email:';
 
 /**
  * @param {String} id
- * @return {user}
+ * @return {SlackUser}
  */
 function getUserById(id) {
   const key = formatKey(userIdKey, id);
@@ -14,7 +14,7 @@ function getUserById(id) {
 
 /**
  * @param {String} id 
- * @param {user} user
+ * @param {SlackUser} user
  * @returns {Boolean}
  */
 function setUserById(id, user) {
@@ -35,7 +35,7 @@ function setUserById(id, user) {
 
 /**
  * @param {String} email
- * @returns {user}
+ * @returns {SlackUser}
  */
 function getUserByEmail(email) {
   const key = formatKey(userEmailKey, email);
@@ -51,7 +51,7 @@ function getUserByEmail(email) {
 
 /**
  * @param {String} email
- * @param {*} user
+ * @param {SlackUser} user
  * @returns {Boolean}
  */
 function setUserByEmail(email, user) {
@@ -68,10 +68,19 @@ function setUserByEmail(email, user) {
   }
 }
 
+/**
+ * @param {String} key
+ * @param {String} uid
+ * @returns {String}
+ */
 function formatKey(key, uid) {
   return `${key}${uid}`;
 }
 
+/**
+ * @param {SlackUser} user
+ * @returns {SimpleUser} 
+ */
 function formatUser(user) {
   return {
     id: user.id,

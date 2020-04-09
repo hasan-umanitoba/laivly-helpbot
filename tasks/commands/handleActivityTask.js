@@ -1,6 +1,11 @@
 const activityApi = require('../../apis/ActivityApi');
 const tokens = require('../../constants/tokens');
 
+/**
+ * @param {Task} task 
+ * @param {String} text 
+ * @param {SlackPayload} payload 
+ */
 async function exec(task, text, payload) {
   const params = (payload.text || '').trim().split(' ');
   const type = params[0].trim();
