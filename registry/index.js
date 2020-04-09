@@ -2,7 +2,8 @@ const listenerService = require('../services/ListenerService');
 const registries = new Map([
   ['message', require('./MessageRegistry')],
   ['action', require('./ActionRegistry')],
-  ['command', require('./CommandRegistry')]
+  ['command', require('./CommandRegistry')],
+  ['view', require('./ViewRegistry')]
 ]);
 
 /**

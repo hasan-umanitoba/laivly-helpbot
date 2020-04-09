@@ -3,6 +3,12 @@
  * @param {BoltApp} app 
  */
 async function registerBefore(app) {
+  app.view('event_view', async ({ ack, body, view, context}) => {
+    // Acknowledge the view_submission event
+    await ack();
+    const taskModule = require(`../tasks/views/eventViewsTask.js`);   
+    const result = await taskModule.exec(body, view, context);        
+});
 }
 
 /**
