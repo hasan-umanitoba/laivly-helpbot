@@ -41,6 +41,8 @@ async function registerBefore(app) {
 async function register(app, listeners) {
   listeners.forEach((listener) => {
     const registry = registries.get(listener.type);
+
+    console.log(`Registering '${listener.type}@${listener.pattern}`);
     
     registry
       ? registry.register(app, listener)
